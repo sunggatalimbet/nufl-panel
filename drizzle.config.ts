@@ -1,12 +1,14 @@
-import { type Config } from "drizzle-kit";
+import { config } from 'dotenv';
+import { defineConfig } from 'drizzle-kit';
 
-import { env } from "~/env";
+config({ path: '.env' });
 
-export default {
-  schema: "./components/shared/api/server/db/schema.ts",
-  dialect: "postgresql",
+
+export default defineConfig({
+  schema: './src/db/schema.ts',
+  out: './migrations',
+  dialect: 'postgresql',
   dbCredentials: {
-    url: env.DATABASE_URL,
+    url: process.env.POSTGRES_URL!,
   },
-  tablesFilter: ["nufl-panel_*"],
-} satisfies Config;
+});
