@@ -1,6 +1,7 @@
 import "@/components/app/styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
+import { Inter } from "next/font/google";
+import { Sidebar } from "@/components/widgets/sidebar/ui";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,12 +10,17 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
+const inter = Inter({ subsets: ["latin"] });
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={`dark antialiased ${inter.style.fontFamily}`}>
+      <body className="relative flex flex-row bg-[#040404] text-white">
+        <Sidebar />
+        <main className="flex-1">{children}</main>
+      </body>
     </html>
   );
 }
