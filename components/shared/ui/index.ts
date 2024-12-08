@@ -11,7 +11,7 @@ import {
   CommandSeparator,
 } from "./command";
 import {
-    Dialog,
+  Dialog,
   DialogPortal,
   DialogOverlay,
   DialogTrigger,
@@ -21,7 +21,17 @@ import {
   DialogFooter,
   DialogTitle,
   DialogDescription,
-} from "./dialog"
+} from "./dialog";
+import { Label } from "./label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./select";
 
 export {
   FutbolIcon,
@@ -45,4 +55,12 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
+  Label,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 };

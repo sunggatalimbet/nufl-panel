@@ -13,6 +13,8 @@ export const tournaments = createTable("tournament", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   userId: varchar("userId", { length: 256 }).notNull().unique(),
   name: varchar("name", { length: 256 }),
+  seasonStartYear: integer("seasonStartYear").notNull(),
+  seasonEndYear: integer("seasonEndYear").notNull(),
   createdAt: timestamp("createdAt", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
@@ -21,24 +23,21 @@ export const tournaments = createTable("tournament", {
   ),
 });
 
-export const teams = createTable(
-  "team",
-  {
-    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-    userId: varchar("userId", { length: 256 }).notNull(),
-    tournamentId: integer("tournamentId")
-      .notNull()
-      .references(() => tournaments.id, { onDelete: "cascade" }),
-    name: varchar("name", { length: 256 }).notNull(),
-    image: varchar("image", { length: 1024 }).notNull(),
-    createdAt: timestamp("createdAt", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt", { withTimezone: true }).$onUpdate(
-      () => new Date(),
-    ),
-  },
-);
+export const teams = createTable("team", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  userId: varchar("userId", { length: 256 }).notNull(),
+  tournamentId: integer("tournamentId")
+    .notNull()
+    .references(() => tournaments.id, { onDelete: "cascade" }),
+  name: varchar("name", { length: 256 }).notNull(),
+  image: varchar("image", { length: 1024 }).notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).$onUpdate(
+    () => new Date(),
+  ),
+});
 
 export const players = createTable("player", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
@@ -50,9 +49,7 @@ export const players = createTable("player", {
   image: varchar("image", { length: 1024 }).notNull(),
   position: varchar("position", { length: 256 }).notNull().default(""),
   school: varchar("school", { length: 256 }).notNull().default(""),
-  levelOfStudy: varchar("levelOfStudy", { length: 256 })
-    .notNull()
-    .default(""),
+  levelOfStudy: varchar("levelOfStudy", { length: 256 }).notNull().default(""),
   age: timestamp("age"),
   year: integer("year").notNull().default(0),
   playedGames: integer("playedGames").notNull().default(0),
@@ -188,7 +185,7 @@ export const cards = createTable("card", {
     .notNull()
     .references(() => teams.id, { onDelete: "cascade" }),
   isYellow: boolean("isYellow").notNull(),
-    createdAt: timestamp("createdAt", { withTimezone: true })
+  createdAt: timestamp("createdAt", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   updatedAt: timestamp("updatedAt", { withTimezone: true })

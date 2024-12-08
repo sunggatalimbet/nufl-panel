@@ -4,9 +4,7 @@ type Props = {
 
 export const PageContainer = ({ children }: Props) => {
   return (
-    <div
-      className={`flex min-h-screen flex-col items-center justify-center gap-10 px-6 py-10`}
-    >
+    <div className={`flex min-h-screen flex-col items-center gap-10 px-2 py-4`}>
       {children}
     </div>
   );
