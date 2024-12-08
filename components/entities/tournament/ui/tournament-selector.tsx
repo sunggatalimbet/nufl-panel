@@ -1,12 +1,10 @@
 "use client";
 
 import {
-  Label,
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/shared/ui";
@@ -35,28 +33,26 @@ export default function TournamentSelector() {
   ];
 
   return (
-    <div className="flex max-w-sm flex-row items-center gap-2 self-start">
-      <Select onValueChange={changeTournament}>
-        <SelectTrigger
-          id="tournament"
-          className="h-full w-full max-w-min items-center justify-start gap-2 border-none bg-white text-sm text-black focus:ring-0"
-        >
-          <SelectValue placeholder="Select a tournament" />
-        </SelectTrigger>
-        <SelectContent className="border-0 bg-white text-black">
-          <SelectGroup>
-            {tournaments.map((tournament) => (
-              <SelectItem
-                key={tournament.id}
-                value={tournament.id}
-                className="cursor-pointer"
-              >
-                {tournament.name} {tournament.season}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-    </div>
+    <Select onValueChange={changeTournament}>
+      <SelectTrigger
+        id="tournament"
+        className="h-full w-full max-w-min items-center justify-start gap-2 border-none bg-white text-sm text-black focus:ring-0"
+      >
+        <SelectValue placeholder="Select a tournament" />
+      </SelectTrigger>
+      <SelectContent className="border-0 bg-white text-black">
+        <SelectGroup>
+          {tournaments.map((tournament) => (
+            <SelectItem
+              key={tournament.id}
+              value={tournament.id}
+              className="cursor-pointer"
+            >
+              {tournament.name} {tournament.season}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   );
 }

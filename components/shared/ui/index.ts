@@ -1,4 +1,5 @@
 import { FutbolIcon, TeamIcon } from "./icons";
+import { Button } from "./button";
 import {
   Command,
   CommandDialog,
@@ -22,6 +23,18 @@ import {
   DialogTitle,
   DialogDescription,
 } from "./dialog";
+import {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+} from "./form";
+import { Input } from "./input";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Label } from "./label";
 import {
   Select,
@@ -34,8 +47,18 @@ import {
 } from "./select";
 
 export {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+  Input,
   FutbolIcon,
   TeamIcon,
+  Button,
   Command,
   CommandDialog,
   CommandInput,
@@ -63,4 +86,7 @@ export {
   SelectLabel,
   SelectTrigger,
   SelectValue,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 };
