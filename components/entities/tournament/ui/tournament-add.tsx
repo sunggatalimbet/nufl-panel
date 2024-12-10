@@ -1,6 +1,8 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useCreateTournament } from "@/components/shared/lib/hooks/tournament";
+import { useEffect, useState } from "react";
 
 import {
   Button,
@@ -17,6 +19,7 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
+import { Spinner } from "@/components/shared/ui";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -27,6 +30,15 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function TournamentForm() {
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  const {
+    mutate: createTournament,
+    isSuccess,
+    isPending,
+    reset,
+  } = useCreateTournament();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,13 +48,24 @@ export default function TournamentForm() {
     },
   });
 
+  useEffect(() => {
+    if (isSuccess) {
+      setIsPopoverOpen(false);
+      reset();
+      form.reset();
+    }
+  }, [isSuccess, reset, form]);
+
   const onSubmit = (data: FormValues) => {
-    console.log(`${data.name} ${data.seasonStartYear}/${data.seasonEndYear}`);
-    form.reset();
+    createTournament({
+      name: data.name,
+      seasonStartYear: +data.seasonStartYear,
+      seasonEndYear: +data.seasonEndYear,
+    });
   };
 
   return (
-    <Popover>
+    <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -113,8 +136,11 @@ export default function TournamentForm() {
                 )}
               />
             </div>
-            <Button type="submit" className="mt-2 h-7 w-full text-xs">
-              Add Tournament
+            <Button
+              type="submit"
+              className="mt-2 h-7 w-full border-[1px] border-gray-700 text-xs"
+            >
+              {isPending ? <Spinner /> : "Add Tournament"}
             </Button>
           </form>
         </Form>

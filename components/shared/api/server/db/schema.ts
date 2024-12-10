@@ -11,8 +11,8 @@ export const createTable = pgTableCreator((name) => `nufl-panel_${name}`);
 
 export const tournaments = createTable("tournament", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  userId: varchar("userId", { length: 256 }).notNull().unique(),
-  name: varchar("name", { length: 256 }),
+  userId: varchar("userId", { length: 256 }).notNull(),
+  name: varchar("name", { length: 256 }).notNull(),
   seasonStartYear: integer("seasonStartYear").notNull(),
   seasonEndYear: integer("seasonEndYear").notNull(),
   createdAt: timestamp("createdAt", { withTimezone: true })

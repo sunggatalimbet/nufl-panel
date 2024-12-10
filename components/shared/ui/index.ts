@@ -45,6 +45,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./select";
+import { Skeleton } from "./skeleton";
+import { Spinner } from "./spinner";
 
 export {
   useFormField,
@@ -86,6 +88,8 @@ export {
   SelectLabel,
   SelectTrigger,
   SelectValue,
+  Skeleton,
+  Spinner,
   Popover,
   PopoverContent,
   PopoverTrigger,

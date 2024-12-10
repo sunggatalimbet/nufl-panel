@@ -5,7 +5,7 @@ import TournamentForm from "../../entities/tournament/ui/tournament-add";
 export const Home = () => {
   return (
     <PageContainer>
-      <div className="flex w-full flex-row items-center justify-end gap-4">
+      <div className="flex w-full flex-row items-center justify-end gap-2">
         <TournamentSelector />
         <TournamentForm />
       </div>

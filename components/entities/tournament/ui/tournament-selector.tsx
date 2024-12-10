@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetUserTournaments } from "@/components/shared/lib/hooks/tournament";
 import {
   Select,
   SelectContent,
@@ -8,49 +9,87 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shared/ui";
-import { useState } from "react";
-
-interface Tournament {
-  id: string;
-  name: string;
-  season: string;
-}
+import { Spinner } from "@/components/shared/ui";
+import { useEffect, useState } from "react";
 
 export default function TournamentSelector() {
-  const [selectedTournament, setSelectedTournament] =
-    useState<Tournament | null>(null);
+  const [selectedTournament, setSelectedTournament] = useState<{
+    id: string;
+    name: string;
+  } | null>(() => {
+    const savedTournament = localStorage.getItem("selectedTournament");
+    return savedTournament
+      ? (JSON.parse(savedTournament) as { id: string; name: string })
+      : null;
+  });
 
-  const changeTournament = (value: string) => {
-    const tournament = tournaments.find((t) => t.id === value);
-    setSelectedTournament(tournament ?? null);
+  useEffect(() => {
+    const savedTournament = localStorage.getItem("selectedTournament");
+    if (savedTournament) {
+      setSelectedTournament(
+        JSON.parse(savedTournament) as { id: string; name: string } | null,
+      );
+    }
+  }, []);
+
+  const { data: tournaments, isLoading, isError } = useGetUserTournaments();
+
+  const handleSelectChange = (value: string) => {
+    const [tournamentId, tournamentName] = value.split("|");
+    const tournamentData = {
+      id: tournamentId ?? "",
+      name: tournamentName ?? "",
+    };
+
+    setSelectedTournament(tournamentData);
+    localStorage.setItem("selectedTournament", JSON.stringify(tournamentData)); // Save ID and name to localStorage
   };
 
-  // mock data
-  const tournaments: Tournament[] = [
-    { id: "1", name: "NVFL", season: "23/24" },
-    { id: "2", name: "NVFL", season: "22/23" },
-    { id: "3", name: "NVFL", season: "21/22" },
-  ];
+  if (!isLoading && !isError) {
+    console.log(tournaments);
+  }
 
   return (
-    <Select onValueChange={changeTournament}>
+    <Select
+      value={
+        selectedTournament
+          ? `${selectedTournament.id}|${selectedTournament.name}`
+          : undefined
+      }
+      onValueChange={handleSelectChange}
+    >
       <SelectTrigger
         id="tournament"
-        className="h-full w-full max-w-min items-center justify-start gap-2 border-none bg-white text-sm text-black focus:ring-0"
+        className="h-7 w-full max-w-min items-center justify-start gap-2 border-none bg-white text-sm text-black focus:ring-0"
       >
-        <SelectValue placeholder="Select a tournament" />
+        <SelectValue placeholder={"Select a tournament..."} />
       </SelectTrigger>
       <SelectContent className="border-0 bg-white text-black">
         <SelectGroup>
-          {tournaments.map((tournament) => (
-            <SelectItem
-              key={tournament.id}
-              value={tournament.id}
-              className="cursor-pointer"
-            >
-              {tournament.name} {tournament.season}
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center">
+              <Spinner size={10} />
+            </div>
+          ) : isError ? (
+            <SelectItem value="error" disabled>
+              Error loading tournaments
             </SelectItem>
-          ))}
+          ) : tournaments && tournaments.length > 0 ? (
+            tournaments.map((tournament) => (
+              <SelectItem
+                key={tournament.id}
+                value={`${tournament.id}|${tournament.name} ${tournament.seasonStartYear}/${tournament.seasonEndYear}`}
+                className="cursor-pointer"
+              >
+                {tournament.name} {tournament.seasonStartYear}/
+                {tournament.seasonEndYear}
+              </SelectItem>
+            ))
+          ) : (
+            <SelectItem value="empty" disabled>
+              No tournaments found
+            </SelectItem>
+          )}
         </SelectGroup>
       </SelectContent>
     </Select>
