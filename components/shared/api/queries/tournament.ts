@@ -25,7 +25,7 @@ export async function getUserTournaments() {
   }
 }
 
-async function getTournament() {
+export async function getTournament() {
   const user = await auth();
   if (!user?.userId) return null;
 

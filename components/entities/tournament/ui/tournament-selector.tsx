@@ -16,19 +16,17 @@ export default function TournamentSelector() {
   const [selectedTournament, setSelectedTournament] = useState<{
     id: string;
     name: string;
-  } | null>(() => {
-    const savedTournament = localStorage.getItem("selectedTournament");
-    return savedTournament
-      ? (JSON.parse(savedTournament) as { id: string; name: string })
-      : null;
-  });
+  } | null>(null);
 
   useEffect(() => {
-    const savedTournament = localStorage.getItem("selectedTournament");
-    if (savedTournament) {
-      setSelectedTournament(
-        JSON.parse(savedTournament) as { id: string; name: string } | null,
-      );
+    // Ensure this code runs only in the browser
+    if (typeof window !== "undefined") {
+      const savedTournament = localStorage.getItem("selectedTournament");
+      if (savedTournament) {
+        setSelectedTournament(
+          JSON.parse(savedTournament) as { id: string; name: string } | null,
+        );
+      }
     }
   }, []);
 
@@ -42,7 +40,13 @@ export default function TournamentSelector() {
     };
 
     setSelectedTournament(tournamentData);
-    localStorage.setItem("selectedTournament", JSON.stringify(tournamentData)); // Save ID and name to localStorage
+    // Ensure localStorage is only accessed in the browser
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "selectedTournament",
+        JSON.stringify(tournamentData),
+      );
+    }
   };
 
   if (!isLoading && !isError) {

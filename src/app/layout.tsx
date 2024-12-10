@@ -7,10 +7,6 @@ import { type Metadata } from "next";
 import { ReactQueryProvider } from "@/components/app/providers/react-query";
 import {
   ClerkProvider,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
 } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
