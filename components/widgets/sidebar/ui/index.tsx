@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const Sidebar = () => {
   return (
-    <div className={"px-4 py-10"}>
+    <div className={"hidden px-4 py-10 md:block"}>
       <div className="flex h-full flex-col">
         <Link href="/">
           <div className="flex flex-col items-center gap-2 sm:flex-row">
