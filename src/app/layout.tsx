@@ -20,19 +20,16 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ReactQueryProvider>
-      <ClerkProvider>
-        <html
-          lang="en"
-          className={`dark antialiased ${inter.style.fontFamily}`}
-        >
-          <body className="relative flex flex-row bg-[#040404] text-white">
-            <Sidebar />
-            <main className="flex-1">{children}</main>
-            <MobileNavigation />
-          </body>
-        </html>
-      </ClerkProvider>
-    </ReactQueryProvider>
+    <ClerkProvider>
+      <html lang="en" className={`dark antialiased ${inter.style.fontFamily}`}>
+        <body className="relative flex flex-row bg-[#040404] text-white">
+          <Sidebar />
+          <main className="flex-1">
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+          </main>
+          <MobileNavigation />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

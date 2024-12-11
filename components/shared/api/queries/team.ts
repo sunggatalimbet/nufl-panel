@@ -23,3 +23,20 @@ export async function getTournamentTeams(tournamentId: number) {
     return null;
   }
 }
+
+export async function getTeam(teamId: number) {
+  try {
+    const user = await auth();
+    if (!user?.userId) return null;
+    console.log(user.userId);
+
+    const team = await db.query.teams.findFirst({
+      where: and(eq(teams.id, teamId), eq(teams.userId, user.userId)),
+    });
+
+    return team;
+  } catch (error) {
+    console.error("Error fetching tournament teams:", error);
+    return null;
+  }
+}
