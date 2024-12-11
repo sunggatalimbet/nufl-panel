@@ -31,6 +31,10 @@ export const teams = createTable("team", {
     .references(() => tournaments.id, { onDelete: "cascade" }),
   name: varchar("name", { length: 256 }).notNull(),
   image: varchar("image", { length: 1024 }).notNull(),
+  gamesPlayed: integer("gamesPlayed").notNull().default(0),
+  scoredPoints: integer("scoredPoints").notNull().default(0),
+  goalsScored: integer("goalsScored").notNull().default(0),
+  goalsConceeded: integer("goalsConceeded").notNull().default(0),
   createdAt: timestamp("createdAt", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

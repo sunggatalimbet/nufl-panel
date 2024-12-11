@@ -29,7 +29,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function TournamentForm() {
+export const TournamentForm = () => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const {
@@ -147,4 +147,4 @@ export default function TournamentForm() {
       </PopoverContent>
     </Popover>
   );
-}
+};

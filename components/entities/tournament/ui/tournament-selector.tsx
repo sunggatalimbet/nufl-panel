@@ -12,7 +12,7 @@ import {
 import { Spinner } from "@/components/shared/ui";
 import { useEffect, useState } from "react";
 
-export default function TournamentSelector() {
+export const TournamentSelector = () => {
   const [selectedTournament, setSelectedTournament] = useState<{
     id: string;
     name: string;

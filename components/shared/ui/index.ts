@@ -1,6 +1,14 @@
 import { FutbolIcon, TeamIcon } from "./icons";
 import { Button } from "./button";
 import {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "./card";
+import {
   Command,
   CommandDialog,
   CommandInput,
@@ -47,6 +55,16 @@ import {
 } from "./select";
 import { Skeleton } from "./skeleton";
 import { Spinner } from "./spinner";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+} from "./table";
 
 export {
   useFormField,
@@ -61,6 +79,12 @@ export {
   FutbolIcon,
   TeamIcon,
   Button,
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent,
   Command,
   CommandDialog,
   CommandInput,
@@ -93,4 +117,12 @@ export {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
 };
